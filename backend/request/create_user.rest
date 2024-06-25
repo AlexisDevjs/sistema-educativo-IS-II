@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+  "email": "wacastillog@utn.edu.ec",
+  "ci": "1003818793",
+  "name": "WIDINSON ALEXIS CASTILLO GUASGUA",
+  "password": "123",
+  "role": "admin"
+}
