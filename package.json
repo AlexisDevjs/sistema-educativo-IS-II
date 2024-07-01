@@ -7,7 +7,7 @@
     "lint": "npx prettier . --write && npx standar --fix"
   },
   "keywords": [],
-  "author": "",
+  "author": "Alexis Castillo",
   "license": "ISC",
   "description": "",
   "devDependencies": {

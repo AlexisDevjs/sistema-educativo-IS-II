@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useRef, useState } from 'react'
 import Modal from './Modal'
 import './table.css'
@@ -5,7 +6,7 @@ import { useUsers } from '../hooks/useUsers'
 import RegisterForm from './RegisterForm'
 
 export default function Table () {
-  const { users, updateUsers } = useUsers()
+  const { usersState, updateUsers } = useUsers()
   const [currentPage, setCurrentPage] = useState(1)
   const [rowsPerPage, setRowsPerPage] = useState(5)
   const modalRef = useRef()
@@ -17,7 +18,7 @@ export default function Table () {
   // Calcula el índice de los elementos a mostrar en la página actual
   const indexOfLastRow = currentPage * rowsPerPage
   const indexOfFirstRow = indexOfLastRow - rowsPerPage
-  const currentRows = users.slice(indexOfFirstRow, indexOfLastRow)
+  const currentRows = usersState.data.slice(indexOfFirstRow, indexOfLastRow)
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage)
@@ -27,6 +28,10 @@ export default function Table () {
   const handleRowsPerPageChange = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setCurrentPage(1)
+  }
+
+  if (usersState.error) {
+    return <p>{usersState.error}</p>
   }
 
   return (
@@ -44,7 +49,7 @@ export default function Table () {
             <th className='th'>Fecha de Creación</th>
             <th className='th'>CI Usuario</th>
             <th className='th'>Nombre</th>
-            <th className='th'>Fotografía</th>
+            <th className='th'>Correo</th>
             <th className='th'>Rol</th>
             <th className='th'>Acciones</th>
           </tr>
@@ -55,13 +60,7 @@ export default function Table () {
               <td>{user.date}</td>
               <td>{user.ci}</td>
               <td>{user.name.toUpperCase()}</td>
-              <td>
-                <img
-                  src={user.nombreFotografia}
-                  alt={`Foto de ${user.name}`}
-                  width='50'
-                />
-              </td>
+              <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
                 <button type='button'>Editar</button>
@@ -93,7 +92,9 @@ export default function Table () {
 
           <button
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === Math.ceil(users.length / rowsPerPage)}
+            disabled={
+              currentPage === Math.ceil(usersState.data.length / rowsPerPage)
+            }
           >
             {'>'}
           </button>

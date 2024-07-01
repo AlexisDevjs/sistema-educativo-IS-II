@@ -4,7 +4,7 @@ import { addUser, initializeUsers } from '../redux/slices/userSlice'
 
 export function useUsers () {
   const dispatch = useDispatch()
-  const users = useSelector((state) => state.users.data)
+  const usersState = useSelector((state) => state.users)
 
   useEffect(() => {
     dispatch(initializeUsers())
@@ -14,5 +14,5 @@ export function useUsers () {
     dispatch(addUser(updatedUsers))
   }
 
-  return { users, updateUsers }
+  return { usersState, updateUsers }
 }

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function LoginForm ({ onSumbit }) {
+export default function LoginForm ({ onSumbit, children }) {
   const [userCredentials, setUserCredentials] = useState({
     email: '',
     password: ''
@@ -19,42 +19,43 @@ export default function LoginForm ({ onSumbit }) {
   }
 
   return (
-    <article>
-      <h2 className='text-center py-2 mt-7'>
-        Inicia Sesión con tus credenciales
-      </h2>
+    <article className='loginFormContainer mt-7'>
+      <h2 className='text-center'>Inicia Sesión</h2>
       <form onSubmit={handleLogin}>
         <label className='block'>
-          correo:
+          Correo:
           <input
             type='text'
             name='email'
+            required
             value={userCredentials.email}
             onChange={handleChange}
             data-testid='email'
-            style={{ width: '360px' }}
+            style={{ width: '330px' }}
           />
         </label>
 
-        <label className='block'>
-          contraseña:
+        <label className='block' style={{ marginTop: '20px' }}>
+          Contraseña:
           <input
             type='password'
             name='password'
+            required
             value={userCredentials.password}
             onChange={handleChange}
             data-testid='password'
-            style={{ width: '360px' }}
+            style={{ width: '330px' }}
           />
         </label>
-        <div className='flex items-center justify-center'>
+        <div className='flex flex-col items-center justify-center'>
           <button
             type='submit'
             className='text-white bg-primary'
-            style={{ marginTop: '30px', width: '360px' }}
+            style={{ marginTop: '30px', width: '350px' }}
           >
-            Login
+            Iniciar Sesión
           </button>
+          {children}
         </div>
       </form>
     </article>

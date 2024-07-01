@@ -1,39 +1,10 @@
-import { useState } from 'react'
-import userServices from '../services/user'
-
-const initialState = {
-  name: '',
-  email: '',
-  password: '',
-  ci: '',
-  role: 'teacher'
-}
+import { useRegisterForm } from '../hooks/useRegisterForm'
 
 export default function RegisterForm ({ modalRef, onSubmit }) {
-  const [formData, setFormData] = useState(initialState)
+  const { formData, errors, handleChange, handleSubmit } = useRegisterForm()
 
-  const handleChange = (event) => {
-    const { name, value, type, checked } = event.target
-    const newUser = {
-      ...formData,
-      [name]: type === 'checkbox' ? (checked ? 'student' : 'teacher') : value
-    }
-
-    setFormData(newUser)
-  }
-
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    modalRef.current.toggleModal()
-
-    try {
-      const savedUser = await userServices.register(formData)
-      onSubmit(savedUser)
-    } catch (error) {
-      console.error('Error registering user:', error.response.data)
-    }
-
-    setFormData(initialState)
+  const handleFormSubmit = async (event) => {
+    await handleSubmit(event, modalRef, onSubmit)
   }
 
   return (
@@ -41,7 +12,7 @@ export default function RegisterForm ({ modalRef, onSubmit }) {
       <h1 style={{ textAlign: 'center' }}>Registro</h1>
 
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleFormSubmit}
         style={{
           display: 'flex',
           flexDirection: 'column',
@@ -57,7 +28,9 @@ export default function RegisterForm ({ modalRef, onSubmit }) {
             value={formData.name}
             onChange={handleChange}
             className='w-full'
+            required
           />
+          {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
         </label>
 
         <label style={{ width: '300px' }}>
@@ -68,7 +41,9 @@ export default function RegisterForm ({ modalRef, onSubmit }) {
             value={formData.email}
             onChange={handleChange}
             className='w-full'
+            required
           />
+          {errors.email && <span style={{ color: 'red' }}>{errors.email}</span>}
         </label>
 
         <label style={{ width: '300px' }}>
@@ -79,7 +54,9 @@ export default function RegisterForm ({ modalRef, onSubmit }) {
             value={formData.ci}
             onChange={handleChange}
             className='w-full'
+            required
           />
+          {errors.ci && <span style={{ color: 'red' }}>{errors.ci}</span>}
         </label>
 
         <label style={{ width: '300px' }}>
@@ -90,7 +67,11 @@ export default function RegisterForm ({ modalRef, onSubmit }) {
             value={formData.password}
             onChange={handleChange}
             className='w-full'
+            required
           />
+          {errors.password && (
+            <span style={{ color: 'red' }}>{errors.password}</span>
+          )}
         </label>
 
         <label

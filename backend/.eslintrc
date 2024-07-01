@@ -1,8 +1,0 @@
-{
-  "env": {
-    "jest": true // Habilita el entorno de Jest
-  },
-  "rules": {
-    "no-undef": "off" // Desactiva la regla 'no-undef'
-  }
-}

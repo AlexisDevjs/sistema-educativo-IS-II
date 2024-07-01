@@ -1,5 +1,5 @@
 import loginService from '../services/login'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
 export function useLogin () {
@@ -10,11 +10,23 @@ export function useLogin () {
       const returnedUser = await loginService.login(credentials)
       window.localStorage.setItem('loggedUser', JSON.stringify(returnedUser))
       setLoggedUser(returnedUser)
-      toast.success('Inicio de Sesión Exitoso')
     } catch (error) {
-      console.error(error.message)
+      toast.error('Error: Usuario o contraseña incorrectos')
     }
   }
 
-  return { loggedUser, handleLogin }
+  const handleLogout = () => {
+    window.localStorage.removeItem('loggedUser')
+    setLoggedUser(null)
+  }
+
+  useEffect(() => {
+    const loggedUserJSON = window.localStorage.getItem('loggedUser')
+    if (loggedUserJSON) {
+      const user = JSON.parse(loggedUserJSON)
+      setLoggedUser(user)
+    }
+  }, [])
+
+  return { loggedUser, handleLogin, handleLogout }
 }

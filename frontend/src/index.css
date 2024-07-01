@@ -123,3 +123,20 @@ body {
 .gap-2 {
   gap: 8px;
 }
+
+/* estilos para el formulario de Login */
+
+.loginFormContainer {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #d8d9da;
+  border-radius: 5px;
+}
+
+.registerButton {
+  width: 350px;
+  border: 1px solid #d8d9da;
+  background-color: #fff;
+}

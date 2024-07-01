@@ -7,8 +7,7 @@ import { useLogin } from './hooks/useLogin'
 import { Toaster } from 'sonner'
 
 export default function App () {
-  const { loggedUser, handleLogin } = useLogin()
-  const loginFormRef = useRef()
+  const { loggedUser, handleLogin, handleLogout } = useLogin()
   const registerFormRef = useRef()
 
   return (
@@ -19,25 +18,30 @@ export default function App () {
       </h1>
       <div className='containerButtons mt-7'>
         {!loggedUser && (
-          <>
-            <Modal buttonText='Iniciar Sesión' ref={loginFormRef}>
-              <LoginForm onSumbit={handleLogin} />
-            </Modal>
-
-            <Modal
-              buttonText='Registrarse'
-              buttonClassName='bg-primary text-white'
-              ref={registerFormRef}
-            >
-              <RegisterForm modalRef={registerFormRef} />
-            </Modal>
-          </>
+          <div style={{ marginTop: '80px' }}>
+            <LoginForm onSumbit={handleLogin}>
+              <Modal
+                buttonText='Registrarse'
+                buttonClassName='registerButton'
+                ref={registerFormRef}
+              >
+                <RegisterForm modalRef={registerFormRef} />
+              </Modal>
+            </LoginForm>
+          </div>
         )}
       </div>
 
       <div>
-        <p>Has iniciado Sesión como {loggedUser?.name}</p>
-        <Table />
+        {loggedUser && (
+          <p>
+            Has iniciado Sesión como {loggedUser?.name}{' '}
+            <button type='button' onClick={handleLogout}>
+              Cerrar Sesión
+            </button>
+          </p>
+        )}
+        {loggedUser && <Table />}
       </div>
     </main>
   )

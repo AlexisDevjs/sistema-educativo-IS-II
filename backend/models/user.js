@@ -18,7 +18,8 @@ const userScheme = new mongoose.Schema({
     enum: ['admin', 'teacher', 'student']
   },
   passwordHash: {
-    type: String
+    type: String,
+    required: true
   },
   date: {
     type: Date,
