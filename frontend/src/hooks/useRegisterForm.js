@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import userServices from '../services/user'
 import { toast } from 'sonner'
+import { addUser } from '../redux/slices/userSlice'
+import { useDispatch } from 'react-redux'
 
 const initialState = {
   name: '',
@@ -13,6 +14,7 @@ const initialState = {
 export function useRegisterForm () {
   const [formData, setFormData] = useState(initialState)
   const [errors, setErrors] = useState({})
+  const dispatch = useDispatch()
 
   const validateName = (name) => {
     const sanitized = name.replace(/[0-9]/g, '')
@@ -54,7 +56,7 @@ export function useRegisterForm () {
     if (sanitized.length !== 10) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        ci: 'El número de cédula debe contener 10 dígitos'
+        ci: 'El número de cédula debe contener 10 dígitos y no puede contener letras'
       }))
     } else {
       setErrors((prevErrors) => {
@@ -108,7 +110,7 @@ export function useRegisterForm () {
     event.preventDefault()
 
     try {
-      const savedUser = await userServices.register(formData)
+      const savedUser = dispatch(addUser(formData))
       onSubmit(savedUser)
       modalRef.current.toggleModal()
       toast.success('Usuario registrado con éxito')

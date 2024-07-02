@@ -30,10 +30,6 @@ export default function Table () {
     setCurrentPage(1)
   }
 
-  if (usersState.error) {
-    return <p>{usersState.error}</p>
-  }
-
   return (
     <div className='container'>
       <h1 className='text-center'>Registro de estudiantes y docentes</h1>

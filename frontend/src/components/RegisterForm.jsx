@@ -3,7 +3,7 @@ import { useRegisterForm } from '../hooks/useRegisterForm'
 export default function RegisterForm ({ modalRef, onSubmit }) {
   const { formData, errors, handleChange, handleSubmit } = useRegisterForm()
 
-  const handleFormSubmit = async (event) => {
+  async function handleFormSubmit (event) {
     await handleSubmit(event, modalRef, onSubmit)
   }
 
