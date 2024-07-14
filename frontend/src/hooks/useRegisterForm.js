@@ -106,17 +106,18 @@ export function useRegisterForm () {
     }))
   }
 
-  const handleSubmit = async (event, modalRef, onSubmit) => {
+  const handleSubmit = (event, modalRef) => {
     event.preventDefault()
 
     try {
       const savedUser = dispatch(addUser(formData))
-      onSubmit(savedUser)
-      modalRef.current.toggleModal()
-      toast.success('Usuario registrado con éxito')
+      if (savedUser) {
+        modalRef.current.toggleModal()
+        toast.success('Usuario registrado con éxito')
+      }
     } catch (error) {
       toast.error(
-        'Error al registrar el usuario el nombre de usuario, correo y npumero de cédula deben ser unicos'
+        'Error al registrar el usuario el nombre de usuario, correo o número de cédula deben ser unicos'
       )
     }
 

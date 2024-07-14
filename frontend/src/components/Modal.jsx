@@ -1,6 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
+import { Dialog, DialogPanel } from '@tremor/react'
 
-const Modal = forwardRef(({ buttonText, buttonClassName, children }, refs) => {
+const Modal = forwardRef(({ buttonLabel, buttonClassName, children }, refs) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleModal = () => {
@@ -14,21 +15,31 @@ const Modal = forwardRef(({ buttonText, buttonClassName, children }, refs) => {
   })
 
   return (
-    <div>
-      <button type='button' className={buttonClassName} onClick={toggleModal}>
-        {buttonText}
+    <article>
+      <button
+        type='button'
+        className={`text-base ${buttonClassName}`}
+        onClick={toggleModal}
+      >
+        {buttonLabel}
       </button>
-      {isOpen && (
-        <div className={`modal-overlay ${isOpen ? 'modal-show' : ''}`}>
-          <div className='modal'>
-            <button className='modal-close' onClick={toggleModal}>
-              &times;
-            </button>
-            {children}
-          </div>
-        </div>
-      )}
-    </div>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        static
+        className='z-[100]'
+      >
+        <DialogPanel className='max-w-sm'>
+          {children}
+          <button
+            className='close-register-modal-button'
+            onClick={() => setIsOpen(false)}
+          >
+            Cancelar
+          </button>
+        </DialogPanel>
+      </Dialog>
+    </article>
   )
 })
 

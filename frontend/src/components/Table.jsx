@@ -1,7 +1,5 @@
-/* eslint-disable no-unused-vars */
-import { useRef, useState } from 'react'
 import Modal from './Modal'
-import './table.css'
+import { useRef, useState } from 'react'
 import { useUsers } from '../hooks/useUsers'
 import RegisterForm from './RegisterForm'
 
@@ -32,11 +30,20 @@ export default function Table () {
 
   return (
     <div className='container'>
-      <h1 className='text-center'>Registro de estudiantes y docentes</h1>
+      <h2 className='text-center table-h2'>
+        Registro de estudiantes y docentes
+      </h2>
       <div className='flex justify-between mt-20 mb-35'>
-        <Modal buttonText='Nuevo' ref={modalRef}>
-          <RegisterForm modalRef={modalRef} onSubmit={handleSubmit} />
-        </Modal>
+        <div className='flex'>
+          <Modal
+            buttonLabel='Nuevo'
+            buttonClassName='btn-primary'
+            ref={modalRef}
+          >
+            <RegisterForm modalRef={modalRef} onSubmit={handleSubmit} />
+          </Modal>
+          <button type='button'>Menú</button>
+        </div>
         <button className='btn btn-danger'>Eliminar Usuario</button>
       </div>
       <table className='table text-center'>
@@ -59,8 +66,12 @@ export default function Table () {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-                <button type='button'>Editar</button>
-                <button type='button'>Información</button>
+                <button type='button' className='btn btn-secondary'>
+                  Editar
+                </button>
+                <button type='button' className='btn btn-success  mt-2'>
+                  Información
+                </button>
               </td>
             </tr>
           ))}
@@ -69,7 +80,6 @@ export default function Table () {
 
       {/* Controles de paginación */}
       <div className='pagination flex justify-between'>
-        {/* Selector de número de filas por página */}
         <select value={rowsPerPage} onChange={handleRowsPerPageChange}>
           {[3, 10, 15].map((rows) => (
             <option key={rows} value={rows}>

@@ -4,17 +4,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "npx prettier . --write && npx standar --fix"
+    "lint": "npx prettier . --write && npx standard --fix"
   },
   "keywords": [],
   "author": "Alexis Castillo",
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "eslint-plugin-react": "^7.34.3",
     "prettier": "3.3.2",
     "standard": "^17.1.0"
-  },
-  "eslintConfig": {
-    "extends": "standard"
   }
 }

@@ -1,32 +1,27 @@
-import loginService from '../services/login'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { loginWithCredentials, logoutUser } from '../redux/slices/authSlice'
+import { useEffect } from 'react'
 
 export function useLogin () {
-  const [loggedUser, setLoggedUser] = useState(null)
+  const loggedUserState = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  const handleLogin = async (credentials) => {
-    try {
-      const returnedUser = await loginService.login(credentials)
-      window.localStorage.setItem('loggedUser', JSON.stringify(returnedUser))
-      setLoggedUser(returnedUser)
-    } catch (error) {
-      toast.error('Error: Usuario o contraseña incorrectos')
+  useEffect(() => {
+    if (loggedUserState.loggedUser) {
+      navigate('/dashboard/users')
     }
+  }, [loggedUserState.loggedUser, navigate])
+
+  const handleLogin = (credentials) => {
+    dispatch(loginWithCredentials(credentials))
   }
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedUser')
-    setLoggedUser(null)
+    dispatch(logoutUser())
+    navigate('/')
   }
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem('loggedUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
-      setLoggedUser(user)
-    }
-  }, [])
-
-  return { loggedUser, handleLogin, handleLogout }
+  return { loggedUserState, handleLogin, handleLogout }
 }
