@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { toast } from 'sonner'
 import { addUser } from '../redux/slices/userSlice'
 import { useDispatch } from 'react-redux'
 
@@ -97,7 +96,7 @@ export function useRegisterForm () {
     } else if (name === 'password') {
       validatePassword(value)
     } else if (type === 'checkbox') {
-      newValue = checked ? 'student' : 'teacher'
+      newValue = checked ? 'estudiante' : 'docente'
     }
 
     setFormData((prevData) => ({
@@ -106,19 +105,14 @@ export function useRegisterForm () {
     }))
   }
 
-  const handleSubmit = (event, modalRef) => {
+  const handleSubmit = async (event, modalRef) => {
     event.preventDefault()
 
     try {
-      const savedUser = dispatch(addUser(formData))
-      if (savedUser) {
-        modalRef.current.toggleModal()
-        toast.success('Usuario registrado con éxito')
-      }
+      dispatch(addUser(formData))
+      modalRef.current.toggleModal()
     } catch (error) {
-      toast.error(
-        'Error al registrar el usuario el nombre de usuario, correo o número de cédula deben ser unicos'
-      )
+      console.error(error.message)
     }
 
     setFormData(initialState)

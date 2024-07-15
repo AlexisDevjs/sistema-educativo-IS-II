@@ -1,0 +1,8 @@
+POST http://localhost:3003/api/courses
+Content-Type: application/json
+
+{
+  "level": "10mo. de básica",
+  "teacher": "66956c8cd45d2f68b3302684",
+  "students": 25
+}

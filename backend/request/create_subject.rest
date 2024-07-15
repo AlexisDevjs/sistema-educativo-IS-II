@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/subjects
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IndhY2FzdGlsbG9nQHV0bi5lZHUuZWMiLCJpZCI6IjY2OTUzNDI3MzEwMmI2YjZhOWM2NjAzNCIsImlhdCI6MTcyMTA2ODcwOCwiZXhwIjoxNzIxMDcyMzA4fQ.3cfIrU5P8EEFGcpUFJcTFFW3YH04u0J05Do4lNHBxIA
+
+{
+  "name": "Estudios Sociales",
+  "teacher": "66956c8cd45d2f68b3302684",
+  "description": "Educación básica"
+}

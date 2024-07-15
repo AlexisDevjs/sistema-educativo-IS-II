@@ -3,7 +3,11 @@ const bcrypt = require('bcryptjs')
 const User = require('../models/user')
 
 usersRouter.get('/', async (request, response) => {
-  const users = await User.find({})
+  const users = await User.find({}).populate('subject', {
+    name: 1,
+    description: 1,
+    createdAt: 1
+  })
   response.json(users)
 })
 
@@ -23,11 +27,11 @@ usersRouter.post('/', async (request, response) => {
 
   const userToAdd = new User({
     email,
-    name,
+    name: name.toUpperCase(),
     passwordHash,
     ci: request.body.ci,
     date: new Date(),
-    role: request.body.role || 'teacher'
+    role: request.body.role || 'docente'
   })
 
   const savedUser = await userToAdd.save()

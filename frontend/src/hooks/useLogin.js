@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { redirect, useNavigate } from 'react-router-dom'
 import { loginWithCredentials, logoutUser } from '../redux/slices/authSlice'
 import { useEffect } from 'react'
 
@@ -9,8 +9,8 @@ export function useLogin () {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (loggedUserState.loggedUser) {
-      navigate('/dashboard/users')
+    if (loggedUserState.loggedUser && window.location.pathname === '/') {
+      navigate('/dashboard/usuarios')
     }
   }, [loggedUserState.loggedUser, navigate])
 
@@ -20,7 +20,7 @@ export function useLogin () {
 
   const handleLogout = () => {
     dispatch(logoutUser())
-    navigate('/')
+    redirect('/')
   }
 
   return { loggedUserState, handleLogin, handleLogout }

@@ -11,6 +11,8 @@ const middelware = require('./utils/middelware')
 
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
+const subjectRouter = require('./controllers/subjects')
+const coursesRouter = require('./controllers/courses')
 
 mongoose
   .connect(config.MONGODB_URI)
@@ -29,6 +31,8 @@ app.use(express.json())
 app.use(middelware.tokenExtractor)
 app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
+app.use('/api/subjects', subjectRouter)
+app.use('/api/courses', coursesRouter)
 
 app.use(middelware.unknownEndpoint)
 app.use(middelware.errorHandler)

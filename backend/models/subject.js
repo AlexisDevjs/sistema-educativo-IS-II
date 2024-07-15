@@ -1,25 +1,25 @@
 const mongoose = require('mongoose')
 
-const courseSchema = new mongoose.Schema({
-  createdAt: {
-    type: Date,
-    required: true
-  },
-  level: {
+const subjectSchema = new mongoose.Schema({
+  name: {
     type: String,
-    required: true
-  },
-  students: {
-    type: Number,
     required: true
   },
   teacher: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  createdAt: {
+    type: Date,
+    required: true
   }
 })
 
-courseSchema.set('toJSON', {
+subjectSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = document._id.toString()
     delete returnedObject._id
@@ -27,6 +27,5 @@ courseSchema.set('toJSON', {
   }
 })
 
-const Course = mongoose.model('Course', courseSchema)
-
-module.exports = Course
+const Subject = mongoose.model('Subject', subjectSchema)
+module.exports = Subject

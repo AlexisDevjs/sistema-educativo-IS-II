@@ -1,5 +1,4 @@
 import { useLogin } from './hooks/useLogin'
-import { Toaster } from 'sonner'
 import LoginForm from './components/LoginForm'
 
 export default function App () {
@@ -11,7 +10,6 @@ export default function App () {
 
   return (
     <>
-      <Toaster richColors />
       <main className='flex justify-center items-center h-[90vh]'>
         <LoginForm />
       </main>

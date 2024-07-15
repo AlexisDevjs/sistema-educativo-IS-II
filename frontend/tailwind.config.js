@@ -38,7 +38,7 @@ export default {
           },
           content: {
             subtle: colors.gray[400],
-            DEFAULT: colors.gray[500],
+            DEFAULT: colors.gray[600],
             emphasis: colors.gray[700],
             strong: colors.gray[900],
             inverted: colors.white

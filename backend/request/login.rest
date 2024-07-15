@@ -3,5 +3,5 @@ Content-Type: application/json
 
 {
   "email": "wacastillog@utn.edu.ec",
-  "password": "123"
+  "password": "123Al"
 }

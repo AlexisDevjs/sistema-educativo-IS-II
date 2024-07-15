@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import userService from '../../services/user'
 import { resetErrorAndLoadingState } from '../utils'
+import { toast } from 'sonner'
 
 const initialState = {
   data: [],
@@ -64,9 +65,14 @@ export function addUser (user) {
     dispatch(setLoading())
     try {
       const newUser = await userService.create(user)
+      toast.success('Usuario creado exitosamente')
       dispatch(createUser(newUser))
     } catch (error) {
+      console.error(error)
       dispatch(setError(error.message))
+      toast.error(
+        'Error al registrar el usuario el nombre de usuario, correo o número de cédula deben ser unicos'
+      )
     }
   }
 }

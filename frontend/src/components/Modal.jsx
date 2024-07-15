@@ -1,7 +1,7 @@
 import { forwardRef, useImperativeHandle, useState } from 'react'
 import { Dialog, DialogPanel } from '@tremor/react'
 
-const Modal = forwardRef(({ buttonLabel, buttonClassName, children }, refs) => {
+const Modal = forwardRef(({ buttonLabel, buttonClassName, closeButtonLabel, width, children }, refs) => {
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleModal = () => {
@@ -29,13 +29,13 @@ const Modal = forwardRef(({ buttonLabel, buttonClassName, children }, refs) => {
         static
         className='z-[100]'
       >
-        <DialogPanel className='max-w-sm'>
+        <DialogPanel className={width ? 'max-w-[900px]' : 'max-w-sm '}>
           {children}
           <button
-            className='close-register-modal-button'
+            className='close-register-modal-button text-gray-700 mt-2'
             onClick={() => setIsOpen(false)}
           >
-            Cancelar
+            {closeButtonLabel || 'Cancelar'}
           </button>
         </DialogPanel>
       </Dialog>

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
-const userScheme = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   email: {
     type: String,
     required: true,
@@ -15,7 +15,7 @@ const userScheme = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: ['admin', 'teacher', 'student']
+    enum: ['admin', 'docente', 'estudiante']
   },
   passwordHash: {
     type: String,
@@ -29,12 +29,20 @@ const userScheme = new mongoose.Schema({
     type: String,
     required: true,
     unique: true
+  },
+  subject: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Subject'
+  },
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Course'
   }
 })
 
-userScheme.plugin(uniqueValidator)
+userSchema.plugin(uniqueValidator)
 
-userScheme.set('toJSON', {
+userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
     delete returnedObject._id
@@ -43,4 +51,4 @@ userScheme.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('User', userScheme)
+module.exports = mongoose.model('User', userSchema)

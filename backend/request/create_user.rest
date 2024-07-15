@@ -2,9 +2,9 @@ POST http://localhost:3003/api/users
 Content-Type: application/json
 
 {
-  "email": "wacastillog@utn.edu.ec",
-  "ci": "1003818793",
-  "name": "WIDINSON ALEXIS CASTILLO GUASGUA",
-  "password": "123",
-  "role": "admin"
+  "email": "eaparra@utn.edu.ec",
+  "ci": "1006831947",
+  "name": "EMILIANO ANDRES PARRA RIVERA",
+  "password": "123Em",
+  "role": "docente"
 }

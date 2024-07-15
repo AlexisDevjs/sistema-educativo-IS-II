@@ -37,7 +37,7 @@
   background-color: white;
   border: 1px solid #ced0d1;
   width: 100%;
-  padding: 10px 0;
+  padding: 7px 0;
   text-align: center;
   margin-top: 8px;
   border-radius: 6px;
@@ -47,3 +47,16 @@
     color: rgb(255, 94, 94);
   }
 }
+
+button {
+  transition: all 0.2s ease;
+}
+
+button:active {
+  transform: translate(1px, 2px);
+}
+
+.default-shadow {
+  box-shadow: 0 6px 6px #00000020, 0 2px 4px -1px #0000001a;
+}
+
