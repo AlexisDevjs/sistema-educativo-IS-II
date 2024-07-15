@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { addUser } from '../redux/slices/userSlice'
 import { useDispatch } from 'react-redux'
+import validator from 'ecuador-validator'
 
 const initialState = {
   name: '',
   email: '',
   password: '',
   ci: '',
-  role: 'teacher'
+  role: 'docente'
 }
 
 export function useRegisterForm () {
@@ -51,11 +52,12 @@ export function useRegisterForm () {
 
   const validateCI = (ci) => {
     const sanitized = ci.replace(/[^0-9]/g, '').slice(0, 10)
+    const isValid = validator.ci(sanitized)
 
-    if (sanitized.length !== 10) {
+    if (!isValid) {
       setErrors((prevErrors) => ({
         ...prevErrors,
-        ci: 'El número de cédula debe contener 10 dígitos y no puede contener letras'
+        ci: 'El número de cédula no es válido'
       }))
     } else {
       setErrors((prevErrors) => {

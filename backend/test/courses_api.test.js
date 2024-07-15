@@ -26,7 +26,7 @@ describe('Course', () => {
   test('created course successfu', async () => {
     const newUser = {
       email: 'eaparra@utn.edu.ec',
-      ci: '1006831947',
+      ci: '1003818992',
       name: 'EMILIANO ANDRES PARRA RIVERA',
       password: '123Em',
       role: 'docente'

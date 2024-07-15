@@ -18,7 +18,7 @@ describe('Register', () => {
     const userToAdd = {
       email: 'test@utn.edu.ec',
       name: 'user test',
-      ci: '1234567890',
+      ci: '1003818992',
       role: 'admin',
       password: '123'
     }

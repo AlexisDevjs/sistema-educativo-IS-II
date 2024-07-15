@@ -1,6 +1,7 @@
 const usersRouter = require('express').Router()
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
+const validator = require('ecuador-validator')
 
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({}).populate('subject', {
@@ -24,12 +25,18 @@ usersRouter.post('/', async (request, response) => {
   }
 
   const passwordHash = await bcrypt.hash(password, 10)
+  const ci = request.body.ci
+  const isValid = validator.ci(ci)
+
+  if (!isValid) {
+    return response.status(400).json({ error: 'ci invalid' })
+  }
 
   const userToAdd = new User({
     email,
     name: name.toUpperCase(),
     passwordHash,
-    ci: request.body.ci,
+    ci,
     date: new Date(),
     role: request.body.role || 'docente'
   })

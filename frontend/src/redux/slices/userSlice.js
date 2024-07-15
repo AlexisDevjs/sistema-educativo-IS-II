@@ -68,11 +68,14 @@ export function addUser (user) {
       toast.success('Usuario creado exitosamente')
       dispatch(createUser(newUser))
     } catch (error) {
-      console.error(error)
-      dispatch(setError(error.message))
-      toast.error(
-        'Error al registrar el usuario el nombre de usuario, correo o número de cédula deben ser unicos'
-      )
+      console.log(error)
+      if (error.response.data.error === 'ci invalid') {
+        dispatch(setError('Error: el número de céula es inválido'))
+        toast.error('Error: el número de céula es inválido')
+      } else {
+        dispatch(setError('Error al registrar el usuario, verifique que los campos Nombre, Correo y Cédula sean únicos'))
+        toast.error('Error al registrar el usuario, verifique que los campos Nombre, Correo y Cédula sean únicos')
+      }
     }
   }
 }
